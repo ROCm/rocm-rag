@@ -127,7 +127,11 @@ class PipelineWrapper(BasePipelineWrapper):
         # Initialize OpenAI generator
         generator = OpenAIGenerator(
             model=llm_model,
-            api_base_url = llm_api_base_url
+            api_base_url = llm_api_base_url,
+            generation_kwargs={
+                "max_tokens": config.ROCM_RAG_LLM_MAX_TOKENS,
+                "temperature": config.ROCM_RAG_LLM_TEMPERATURE
+            }
         )
 
         query_pipeline = Pipeline()
