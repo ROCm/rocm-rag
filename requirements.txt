@@ -1,0 +1,15 @@
+more_itertools
+cffi
+nltk
+crawl4ai
+haystack-ai 
+weaviate-haystack
+hayhooks
+langgraph
+langchain
+langchain-openai
+langchain-weaviate
+langchain_experimental
+weaviate-client==4.16.9
+protobuf==6.31.1
+grpcio==1.74.0

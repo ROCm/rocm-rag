@@ -1,0 +1,28 @@
+defaults:
+  numbered: False
+  maxdepth: 6
+root: index
+
+subtrees:
+- entries:
+  - file: what-is-rocm-rag.rst
+    title: What is ROCm-RAG?
+
+- caption: Install
+  entries:
+  - file: install/configure-framework.rst
+    title: Set up and configure a ROCm-RAG framework
+
+- caption: How to
+  entries:
+  - file: how-to/run-docker-container.rst
+    title: Run ROCm-RAG with a docker container
+  - file: how-to/direct-execute.rst
+    title: Run ROCm-RAG with direct execution
+  - file: how-to/migrate-data.rst
+    title: Migrate ROCm-RAG Weaviate data
+ 
+- caption: About
+  entries:
+  - file: license.rst
+    title: License
