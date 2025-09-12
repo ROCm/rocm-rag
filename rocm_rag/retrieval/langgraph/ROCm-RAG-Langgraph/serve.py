@@ -12,6 +12,37 @@ import json
 app = FastAPI()
 rag_graph = build_graph()
 
+def _parse_generation_params(body: dict) -> dict:
+    """
+    Parse OpenAI-compatible generation parameters from request body.
+    Only includes parameters that are explicitly provided in the request.
+    
+    Args:
+        body: Request body dictionary containing user parameters
+        
+    Returns:
+        Dictionary of generation parameters to pass to the LLM
+    """
+    generation_params = {}
+    
+    # Common OpenAI parameters that can be overridden
+    param_mapping = {
+        'temperature': 'temperature',
+        'max_tokens': 'max_tokens',
+        'top_p': 'top_p',
+        'frequency_penalty': 'frequency_penalty',
+        'presence_penalty': 'presence_penalty',
+        'stop': 'stop',
+        'n': 'n'
+    }
+    
+    # Extract parameters from body if they exist and are not None
+    for body_key, param_key in param_mapping.items():
+        if body_key in body and body[body_key] is not None:
+            generation_params[param_key] = body[body_key]
+        
+    return generation_params
+
 class ChatMessage(BaseModel):
     role: Literal["user", "assistant", "system"]
     content: str
@@ -22,6 +53,14 @@ class ChatRequest(BaseModel):
     temperature: Optional[float] = 0.7
     max_tokens: Optional[int] = None
     stream: Optional[bool] = True
+    top_p: Optional[float] = None
+    frequency_penalty: Optional[float] = None
+    presence_penalty: Optional[float] = None
+    stop: Optional[List[str]] = None
+    n: Optional[int] = None
+    
+    class Config:
+        extra = "allow"  # Allow additional fields not explicitly defined
 
 
 
@@ -33,7 +72,20 @@ async def chat(request: ChatRequest):
         return {"error": "No user message found."}
     history = [m.content for m in request.messages if m.role != "user"]
 
-    initial_state = {"question": question, "documents": [], "urls": [], "answer": "", "delta": "", "stream": request.stream, "history": history, "counter": 0}
+    # Parse generation parameters from request
+    request_body = request.model_dump()
+    generation_kwargs = _parse_generation_params(request_body)
+
+    initial_state = {
+        "question": question, 
+        "documents": [], 
+        "urls": [], 
+        "answer": "", 
+        "stream": request.stream, 
+        "history": history, 
+        "model": request.model,
+        "generation_kwargs": generation_kwargs
+    }
 
     if request.stream:
         async def event_stream():

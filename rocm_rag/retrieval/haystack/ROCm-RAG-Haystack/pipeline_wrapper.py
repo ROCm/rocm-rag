@@ -67,6 +67,37 @@ class PromptBuilderWithRefLinks(PromptBuilder):
 class PipelineWrapper(BasePipelineWrapper):
     """Haystack query pipeline wrapper for hayhooks."""
 
+    def _parse_generation_params(self, body: dict) -> dict:
+        """
+        Parse OpenAI-compatible generation parameters from request body.
+        Only includes parameters that are explicitly provided in the request.
+        
+        Args:
+            body: Request body dictionary containing user parameters
+            
+        Returns:
+            Dictionary of generation parameters to pass to the LLM
+        """
+        generation_params = {}
+        
+        # Common OpenAI parameters that can be overridden
+        param_mapping = {
+            'temperature': 'temperature',
+            'max_tokens': 'max_tokens',
+            'top_p': 'top_p',
+            'frequency_penalty': 'frequency_penalty',
+            'presence_penalty': 'presence_penalty',
+            'stop': 'stop',
+            'n': 'n'
+        }
+        
+        # Extract parameters from body if they exist and are not None
+        for body_key, param_key in param_mapping.items():
+            if body_key in body and body[body_key] is not None:
+                generation_params[param_key] = body[body_key]
+            
+        return generation_params
+
     def setup(self) -> None:
         weaviate_url = f"{config.ROCM_RAG_WEAVIATE_URL}:{config.ROCM_RAG_WEAVIATE_PORT}"
         embedder_api_base_url = f"{config.ROCM_RAG_EMBEDDER_API_BASE_URL}:{config.ROCM_RAG_EMBEDDER_API_PORT}/v1"
@@ -127,11 +158,7 @@ class PipelineWrapper(BasePipelineWrapper):
         # Initialize OpenAI generator
         generator = OpenAIGenerator(
             model=llm_model,
-            api_base_url = llm_api_base_url,
-            generation_kwargs={
-                "max_tokens": config.ROCM_RAG_LLM_MAX_TOKENS,
-                "temperature": config.ROCM_RAG_LLM_TEMPERATURE
-            }
+            api_base_url = llm_api_base_url
         )
 
         query_pipeline = Pipeline()
@@ -146,9 +173,14 @@ class PipelineWrapper(BasePipelineWrapper):
     
     def run_chat_completion(self, model: str, messages: List[dict], body: dict) -> Union[str, Generator]:
         last_query = get_last_user_message(messages)
+        
+        # Parse generation parameters from user request
+        generation_params = self._parse_generation_params(body)
+        
         run_args = {
             "text_embedder": {"text": last_query},
             "prompt_builder": {"query": messages},
+            "llm": {"generation_kwargs": generation_params}
         }
 
         # If request has stream=True, return a generator

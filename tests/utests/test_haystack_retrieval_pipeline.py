@@ -287,6 +287,7 @@ class TestPipelineWrapper:
                 pipeline_run_args={
                     "text_embedder": {"text": "How does HIP work?"},
                     "prompt_builder": {"query": sample_messages},
+                    "llm": {"generation_kwargs": {}}
                 }
             )
             
