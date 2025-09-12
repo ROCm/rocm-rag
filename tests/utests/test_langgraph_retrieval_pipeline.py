@@ -195,7 +195,11 @@ class TestRetrieveNode(unittest.TestCase):
         # Verify the state was updated correctly
         self.assertEqual(len(result_state["documents"]), 3)
         self.assertEqual(len(result_state["urls"]), 3)
-        self.assertEqual(result_state["urls"], ["https://rocm1.com", "https://rocm2.com", "https://rocm3.com"])
+        # URLs are unique and order may vary due to set() operation
+        self.assertEqual(len(result_state["urls"]), 3)
+        self.assertIn("https://rocm1.com", result_state["urls"])
+        self.assertIn("https://rocm2.com", result_state["urls"])
+        self.assertIn("https://rocm3.com", result_state["urls"])
         self.assertEqual(result_state["question"], "What is ROCm?")
 
     @patch('rag_nodes.rag_vectorstore')
@@ -241,7 +245,7 @@ class TestRetrieveNode(unittest.TestCase):
         result_state = retrieve_node(input_state)
         
         # URLs should be extracted, with empty string for documents without URL
-        expected_urls = ["", "https://test.com", ""]
+        expected_urls = ["https://test.com"]  # Only non-empty unique URLs
         self.assertEqual(result_state["urls"], expected_urls)
 
     @patch('rag_nodes.rag_vectorstore')
@@ -293,8 +297,10 @@ class TestGenerateNodeStream(unittest.TestCase):
         
         # Run the async function
         async def run_test():
-            result = await generate_node_stream(input_state)
-            return result
+            # In non-streaming mode, the generator doesn't yield anything but modifies state
+            async for _ in generate_node_stream(input_state):
+                pass  # No chunks should be yielded in non-streaming mode
+            return input_state
         
         result_state = asyncio.run(run_test())
         
@@ -335,14 +341,16 @@ class TestGenerateNodeStream(unittest.TestCase):
             "stream": True
         }
         
-        # Run the async function
+        # Run the async function for streaming mode
         async def run_test():
-            result = await generate_node_stream(input_state)
-            return result
+            chunks = []
+            async for chunk in generate_node_stream(input_state):
+                chunks.append(chunk)
+            return chunks
         
-        result_state = asyncio.run(run_test())
+        chunks = asyncio.run(run_test())
         
-        # In streaming mode, the function should not return a state with answer
+        # In streaming mode, the function should yield chunks
         mock_llm.astream.assert_called_once()
 
     @patch('rag_nodes.chat_llm')
@@ -365,8 +373,10 @@ class TestGenerateNodeStream(unittest.TestCase):
         }
         
         async def run_test():
-            result = await generate_node_stream(input_state)
-            return result
+            # In non-streaming mode, the generator doesn't yield anything but modifies state
+            async for _ in generate_node_stream(input_state):
+                pass  # No chunks should be yielded in non-streaming mode
+            return input_state
         
         result_state = asyncio.run(run_test())
         
@@ -674,8 +684,10 @@ class TestRAGPipelineIntegration(unittest.TestCase):
         }
         
         async def test_generation():
-            result = await generate_node_stream(state)
-            return result
+            # In non-streaming mode, the generator doesn't yield anything but modifies state
+            async for _ in generate_node_stream(state):
+                pass  # No chunks should be yielded in non-streaming mode
+            return state
         
         result_state = asyncio.run(test_generation())
         

@@ -17,7 +17,7 @@ chat_llm = ChatOpenAI(
 def retrieve_node(state: GraphState) -> GraphState:
     documents = rag_vectorstore.retriever.invoke(state["question"])
     state["documents"] = documents
-    state["urls"] = [doc.metadata.get("url", "") for doc in documents]
+    state["urls"] = list(set([doc.metadata.get("url", "") for doc in documents if doc.metadata.get("url")]))
     return state
 
 async def generate_node_stream(state: GraphState):
@@ -32,11 +32,12 @@ async def generate_node_stream(state: GraphState):
     History: {state['history']}
     """
 
+    # Update chat_llm with request parameters
+    generation_kwargs = state.get("generation_kwargs", {})
+    
     if state.get("stream", True):
-        async for chunk in chat_llm.astream(prompt):            
-            AIMessageChunk(content=chunk.content)
-
+        async for chunk in chat_llm.astream(prompt, **generation_kwargs):            
+            yield chunk
     else:
-        response = await chat_llm.ainvoke(prompt)
+        response = await chat_llm.ainvoke(prompt, **generation_kwargs)
         state["answer"] = response.content
-        return state

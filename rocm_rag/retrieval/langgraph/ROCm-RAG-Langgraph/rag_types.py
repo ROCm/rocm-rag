@@ -1,4 +1,4 @@
-from typing import TypedDict, List, Optional
+from typing import TypedDict, List, Optional, Dict, Any
 from langchain_core.documents import Document
 
 class GraphState(TypedDict):
@@ -8,3 +8,5 @@ class GraphState(TypedDict):
     answer: Optional[str]
     history: List[dict]
     stream: bool
+    model: str
+    generation_kwargs: Dict[str, Any]
