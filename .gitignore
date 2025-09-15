@@ -221,5 +221,5 @@ __marimo__/
 # database backups
 /backup
 
-# loggings
-/logs
+# # loggings
+# /logs
