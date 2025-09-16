@@ -48,7 +48,7 @@ ROCM_RAG_USE_EXAMPLE_LLM=True
 If you set `ROCM_RAG_USE_EXAMPLE_LLM=False`, please follow the following steps to deploy LLM inference server outside the ROCm-RAG container.
 
 **SGLang**   
-Deploy DeepSeek V3
+Deploy DeepSeek V3.1
 ```
 # on a separate node
 docker run --cap-add=SYS_PTRACE --ipc=host --privileged=true \
@@ -57,40 +57,53 @@ docker run --cap-add=SYS_PTRACE --ipc=host --privileged=true \
         -v <mount dir>:<mount dir> \
 lmsysorg/sglang:v0.4.4-rocm630
 
-RCCL_MSCCL_ENABLE=0 CK_MOE=1  HSA_NO_SCRATCH_RECLAIM=1  python3 -m sglang.launch_server --model-path deepseek-ai/DeepSeek-V3-0324 --host 0.0.0.0 --port 30000 --tp 8 --trust-remote-code
+RCCL_MSCCL_ENABLE=0 CK_MOE=1  HSA_NO_SCRATCH_RECLAIM=1  python3 -m sglang.launch_server --model-path deepseek-ai/DeepSeek-V3.1 --host 0.0.0.0 --port 30000 --tp 8 --trust-remote-code
 ```
 **vLLM**    
 Please refer to https://rocm.blogs.amd.com/software-tools-optimization/vllm-0.9.x-rocm/README.html   
 
 **llama.cpp**      
-Deploy unsloth/DeepSeek-V3-0324-GGUF   
-pulling GGUF checkpoints 
-```
-from huggingface_hub import snapshot_download
+Deploy unsloth/DeepSeek-V3.1-GGUF   
 
-# Define the model repository and destination directory
-model_id = "unsloth/DeepSeek-V3-0324-GGUF"
-local_dir = "<your huggingface cache directory>/hub/models--unsloth--DeepSeek-V3-0324-GGUF"
-
-# Download only files matching the pattern "DeepSeek-V3-Q4_K_M*"
-snapshot_download(
-    repo_id=model_id,
-    local_dir=local_dir,
-    local_dir_use_symlinks=False,
-    allow_patterns=["Q4_K_M/DeepSeek-V3-0324-Q4_K_M*"]
-)
-
-print(f"Downloaded GGUF file(s) matching pattern to: {local_dir}")
-```
 build llama.cpp docker image
 ```
 git clone https://github.com/ROCm/llama.cpp
 cd llama.cpp/
 docker build -t local/llama.cpp:rocm6.4_ubuntu24.04-complete --target build -f .devops/rocm.Dockerfile .
 ```
-launch llama.cpp HTTP server
+
+pulling GGUF checkpoints outside the container
 ```
-./llama-server -m <your huggingface cache directory>/hub/models--unsloth--DeepSeek-V3-0324-GGUF/Q4_K_M/DeepSeek-V3-0324-Q4_K_M-00001-of-00009.gguf -ngl 999 -np 4 --alias unsloth/DeepSeek-V3-0324-Q4_K_M --host 0.0.0.0 --port 30000
+from huggingface_hub import snapshot_download
+
+# Define the model repository and destination directory
+model_id = "unsloth/DeepSeek-V3.1-GGUF"
+local_dir = "<your huggingface cache directory>/hub/models--unsloth--DeepSeek-V3.1-GGUF"
+
+# Download only files matching the pattern "DeepSeek-V3.1-Q4_K_M*"
+snapshot_download(
+    repo_id=model_id,
+    local_dir=local_dir,
+    local_dir_use_symlinks=False,
+    allow_patterns=["Q4_K_M/DeepSeek-V3.1-Q4_K_M*"]
+)
+
+print(f"Downloaded GGUF file(s) matching pattern to: {local_dir}")
+```
+
+start your docker container with your checkpoints directory mounted
+```
+docker run --cap-add=SYS_PTRACE --ipc=host --privileged=true \
+        --shm-size=128GB --network=host --device=/dev/kfd \
+        --device=/dev/dri --group-add video -it \
+        -v <your huggingface cache directory on host>:<your huggingface cache directory inside container> \
+local/llama.cpp:rocm6.4_ubuntu24.04-complete
+```
+
+and inside your container launch llama.cpp HTTP server
+```
+cd /app/build/bin
+./llama-server -m <your huggingface cache directory inside the container>/hub/models--unsloth--DeepSeek-V3.1-GGUF/Q4_K_M/DeepSeek-V3.1-Q4_K_M-00001-of-00009.gguf -ngl 999 -np 4 --alias unsloth/DeepSeek-V3.1-Q4_K_M --host 0.0.0.0 --port 30000
 ```
 Please make sure you set correct APIs for LLM server related env variables once you finish setting up your inference server.    
 
