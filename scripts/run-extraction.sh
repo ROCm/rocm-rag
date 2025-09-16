@@ -28,8 +28,8 @@ cd "${ROCM_RAG_WORKSPACE}/rocm-rag/external/weaviate/cmd/weaviate-server" || exi
 export QUERY_DEFAULTS_LIMIT=20 
 export AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true 
 export DEFAULT_VECTORIZER_MODULE=none 
-export ENABLE_MODULES=backup-filesystem
-export BACKUP_FILESYSTEM_PATH="${ROCM_RAG_WORKSPACE}/rocm-rag/backup"
+# export ENABLE_MODULES=backup-filesystem
+# export BACKUP_FILESYSTEM_PATH="${ROCM_RAG_WORKSPACE}/rocm-rag/backup"
 export PERSISTENCE_DATA_PATH="${ROCM_RAG_WORKSPACE}/rocm-rag/data/${ROCM_RAG_EXTRACTION_FRAMEWORK}/weaviate" 
 export DEFAULT_PORT="${ROCM_RAG_WEAVIATE_PORT}" 
 export TLS_DISABLED=true 
