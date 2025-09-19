@@ -318,7 +318,7 @@ docker run --env-file <your env file> --cap-add=SYS_PTRACE --ipc=host --privileg
            --group-add video -it \
            -v <mount dir>:<mount dir> \
            rocm-rag:latest /bin/bash -c \
-           "cd /rag-workspace/rocm-rag && \
+           "cd /rag-workspace/rocm-rag/scripts && \
             bash run-extraction.sh && \
             bash run-retrieval.sh"
 ```
