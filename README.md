@@ -43,7 +43,7 @@ Follow the setup guide to deploy your inference server. If you prefer to test th
 ```
 ROCM_RAG_USE_EXAMPLE_LLM=True
 ```
-<span style="color:green">**By default, this will launch `Qwen/Qwen3-30B-A3B-Instruct-2507` using vLLM inside the provided Docker container on GPU 2,3.**</span> You can skip next step if you use example LLM model inside this docker.   
+<span style="color:green">**By default, this will launch `Qwen/Qwen3-30B-A3B-Instruct-2507` using vLLM inside the provided Docker container on GPU 1,2.**</span> You can skip next step if you use example LLM model inside this docker.   
 
 If you set `ROCM_RAG_USE_EXAMPLE_LLM=False`, please follow the following steps to deploy LLM inference server outside the ROCm-RAG container.
 
