@@ -54,8 +54,7 @@ Deploy DeepSeek V3.1
 docker run --cap-add=SYS_PTRACE --ipc=host --privileged=true \
         --shm-size=128GB --network=host --device=/dev/kfd \
         --device=/dev/dri --group-add video -it \
-        -v <mount dir>:<mount dir> \
-lmsysorg/sglang:v0.4.4-rocm630
+lmsysorg/sglang:v0.5.3rc0-rocm630-mi30x
 
 RCCL_MSCCL_ENABLE=0 CK_MOE=1  HSA_NO_SCRATCH_RECLAIM=1  python3 -m sglang.launch_server --model-path deepseek-ai/DeepSeek-V3.1 --host 0.0.0.0 --port 30000 --tp 8 --trust-remote-code
 ```
