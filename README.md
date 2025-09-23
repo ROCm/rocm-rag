@@ -16,7 +16,7 @@ docker build -t rocm-rag -f docker/rocm.Dockerfile .
 #### Pull prebuilt docker image
 
 ```
-docker pull <image_name>:<tag>
+docker pull rocm/rocm-rag:rocm-rag-1.0.0-rocm6.4.1-ubuntu22.04
 ```
 
 ## RAG Framework Options
