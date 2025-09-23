@@ -1,5 +1,6 @@
 # Base image
-FROM rocm/vllm:latest
+FROM rocm/vllm:rocm6.4.1_vllm_0.10.1_20250909
+
 
 # Set Python working directory
 WORKDIR /rag-workspace/rocm-rag
