@@ -194,7 +194,7 @@ docker run --cap-add=SYS_PTRACE --ipc=host --privileged=true \
         --shm-size=128GB --network=host --device=/dev/kfd \
         --device=/dev/dri --group-add video -it \
         -v <mount dir>:<mount dir> \
-rocm-rag:latest
+rocm/rocm-rag:rocm-rag-1.0.0-rocm6.4.1-ubuntu22.04
 ```
 
 #### 1.2 Run extraction pipeline   
