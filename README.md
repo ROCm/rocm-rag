@@ -3,7 +3,15 @@
 This repository provides resources and code to build Retrieval-Augmented Generation (RAG) workflows running on AMD GPUs. It outlines the necessary steps and components required to construct a complete RAG pipeline.
 
 ## Docker Image
-You can build docker image using dockerfile, or pull prebuilt docker image from dockerhub
+
+#### Pull prebuilt docker image
+
+```
+docker pull rocm/rocm-rag:rocm-rag-1.0.0-rocm6.4.1-ubuntu22.04
+```
+
+Or you can build docker image using dockerfile
+
 #### Build Docker Image
 
 ```
@@ -11,12 +19,6 @@ git clone https://github.com/ROCm/rocm-rag.git --recursive
 cd rocm-rag
 # Build docker image 
 docker build -t rocm-rag -f docker/rocm.Dockerfile . 
-```
-
-#### Pull prebuilt docker image
-
-```
-docker pull rocm/rocm-rag:rocm-rag-1.0.0-rocm6.4.1-ubuntu22.04
 ```
 
 ## RAG Framework Options
