@@ -1,13 +1,21 @@
 .. meta::
-  :description: ROCm-RAG is 
-  :keywords: ROCm-RAG, ROCm, 
+  :description: Learn about ROCm-RAG
+  :keywords: ROCm, RAG, documentation
 
 *****************
-ROCm-RAG: Reference Pipelines for Domain-Aware AI
+What is ROCm-RAG?
 *****************
-Unlock the power of Retrieval-Augmented Generation (RAG) with ROCm-RAG, a complete reference for building and deploying end-to-end AI pipelines on the AMD ROCm™ platform. 
-Designed to combine the strengths of large language models with real-time access to your organization’s knowledge, ROCm RAG delivers accurate, trustworthy, and domain-specific results that drive smarter decisions and better customer experiences.
-Built on AMD Instinct™ MI300x GPUs, ROCm RAG demonstrates how the entire RAG workflow—document ingestion, embedding, retrieval, and generation—can run seamlessly on AMD hardware. 
-This reference empowers developers and enterprises to quickly adopt best practices, reduce complexity, and accelerate innovation with AI solutions tailored to their own data.
-Experience the confidence of deploying AI pipelines that scale with performance, flexibility, and efficiency. 
-With ROCm RAG, businesses can unlock knowledge, shorten time to value, and build intelligent applications powered by AMD technology. 
+
+RAG enhances the accuracy and reliability of Large Language Models by exposing it to up-to-date, relevant information.
+When a query is received, RAG retrieves relevant documents or information from its knowledge base, then uses this retrieved context alongside the query to generate accurate and informed responses.
+This approach helps reduce hallucinations (making up information) common in standard LLMs, while also enabling the model to access current information not present in its original training data.
+
+Organizations rely on the RAG pipelines (end-to-end systems) that process and manage information from raw data to the final response generation.
+These pipelines operate in two main phases, the extraction phase and the retrieval phase: 
+
+- During extraction, documents are processed, split into chunks, converted into vector embeddings (numerical representations of text), and stored in a `Weaviate <https://docs.weaviate.io/weaviate>`__ vector database. 
+- In the retrieval phase, when a user asks a question, the pipeline retrieves relevant information and generates a response using an LLM, ensuring that the benefits of RAG are translated into practical, reliable results.
+
+RAG is particularly valuable in enterprise applications where accuracy and verifiable information are crucial, such as customer support systems, research assistants, and documentation tools.
+
+
