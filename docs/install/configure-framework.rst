@@ -173,7 +173,7 @@ Use an .env file
 -----------------
 
 .. The link to default.env will need to change when we move this repo to a public repo.
-1. Start with `default.env <https://github.com/AMD-AIOSS/ROCm-RAG-Online/blob/main/default.env>`__ as a base. 
+1. Start with `default.env <https://github.com/ROCm/rocm-rag/blob/main/default.env>`__ as a base. 
 2. Modify the variables as needed and provide the ``.env`` file when running the container:
 
    .. code:: bash 
