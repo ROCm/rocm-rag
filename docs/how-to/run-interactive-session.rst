@@ -42,7 +42,7 @@ Ensure you mount these directories to your host directories so that you can reus
 
 .. code:: bash
 
-  cd rocm-rag/scripts
+  cd /rag-workspace/rocm-rag/scripts
   bash run-extraction-tmux.sh # OR bash run-extraction.sh
 
 You can switch to a different bash terminal window with ``tmux select-window -t <window ID>``.   
@@ -65,7 +65,7 @@ Use this code to start the retrieval pipelines to get the extracted data from th
 
 .. code:: bash 
 
-  cd rocm-rag/scripts
+  cd /rag-workspace/rocm-rag/scripts
   bash run-retrieval-tmux.sh # OR bash run-retrieval.sh
 
 You can switch to a different bash terminal window with ``tmux select-window -t <window ID>``.
