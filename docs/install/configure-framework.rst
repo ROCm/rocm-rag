@@ -19,8 +19,8 @@ System requirements
 - Operating system: Ubuntu 22.04
 - These ROCm-RAG frameworks work with the AMD Instinct MI300X GPU:
   
-  - If you're hosting the LLM outside the Docker container, then the container requires one MI300X GPU. By default, the GPU ID is ``0``, but this can be changed by setting the environment variables.
-  - If you're hosting the LLM inside the container, meaning ``ROCM_RAG_USE_EXAMPLE_LLM`` is set to ``true``, then three MI300X GPUs are required. By default, the GPU IDs are ``0``, ``1``, ``2``, but these can be changed by setting the environment variables.
+  - If you're hosting the LLM outside the Docker container, then the container requires one MI300X GPU. By default, the GPU ID is ``0``, but this can be changed by setting the environment variables ``ROCM_RAG_EMBEDDER_TP`` and ``ROCM_RAG_EMBEDDER_GPU_IDS``.
+  - If you're hosting the LLM inside the container, meaning ``ROCM_RAG_USE_EXAMPLE_LLM`` is set to ``true``, then three MI300X GPUs are required. By default, the GPU IDs are ``0``, ``1``, ``2``, but these can be changed by setting the environment variables ``ROCM_RAG_EMBEDDER_TP``, ``ROCM_RAG_EMBEDDER_GPU_IDS``, ``ROCM_RAG_LLM_TP``, and ``ROCM_RAG_LLM_GPU_IDS``.
 
 Using a Docker image with the dependencies preinstalled
 =======================================================
