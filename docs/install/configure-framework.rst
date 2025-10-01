@@ -232,6 +232,7 @@ Extraction parameters
   ROCM_RAG_WEAVIATE_CLASSNAME # weaviate classname
   ROCM_RAG_WAIT_VECTOR_DB_TIMEOUT # wait time for vector db server to be ready
   ROCM_RAG_WAIT_EMBEDDER_TIMEOUT # wait time for embedder server to be ready
+  ROCM_RAG_EMBEDDER_TP # tensor parallism for embedder
   ROCM_RAG_EMBEDDER_GPU_IDS # list of visible GPUs when deploy embedder model
   ROCM_RAG_START_URLS # start URL for scraping
   ROCM_RAG_VALID_EXTENSIONS # list of supported URL extensions to scrape
