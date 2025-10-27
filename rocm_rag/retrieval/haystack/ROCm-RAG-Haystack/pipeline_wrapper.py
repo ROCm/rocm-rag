@@ -79,13 +79,6 @@ class ChatGeneratorWrapper(OpenAIChatGenerator):
     2. Renumber citations sequentially [1], [2], [3], etc.
     3. Update the References section to match the renumbered citations
     """
-    def __init__(  # pylint: disable=too-many-positional-arguments
-        self,
-        model,
-        api_base_url
-    ):
-        super().__init__(model=model, 
-                         api_base_url=api_base_url)
 
     @component.output_types(replies=list[ChatMessage])
     def run(
@@ -101,7 +94,8 @@ class ChatGeneratorWrapper(OpenAIChatGenerator):
         Run the OpenAI chat generator and process citations in the response.
         """
         # Call the parent class method to get the original response
-        result = super().run(messages=messages)
+        result = super().run(messages=messages, streaming_callback=streaming_callback, generation_kwargs=generation_kwargs)
+        # print("\n\nEntire original:", result)
         
         if not result or "replies" not in result or not result["replies"]:
             return result
@@ -109,14 +103,17 @@ class ChatGeneratorWrapper(OpenAIChatGenerator):
         # Process each reply to fix citations
         processed_replies = []
         for reply in result["replies"]:
-            processed_content = self._process_citations(reply.content)
+            processed_content = self._process_citations(reply.text)
             # Create a new ChatMessage with the processed content
-            processed_reply = ChatMessage.from_assistant(processed_content)
-            processed_replies.append(processed_reply)
+            chat_message = ChatMessage.from_assistant(text=processed_content,
+                                                      name=reply.name,
+                                                      tool_calls=reply.tool_calls,
+                                                      meta=reply.meta)
+            processed_replies.append(chat_message)
+            # print("\n\nChanged:", chat_message)
         
         # Return the result with processed replies
-        result["replies"] = processed_replies
-        return result
+        return {"replies": processed_replies}
     
     def _process_citations(self, text: str) -> str:
         """
