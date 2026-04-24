@@ -12,16 +12,17 @@ RAG is a machine learning architecture that enhances Large Language Models by co
 This documentation demonstrates how you can use RAG for document ingestion, embedding, retrieval, and generation.
 It outlines the necessary steps and components required to construct a complete RAG pipeline for this workflow.
 
-See `From Ingestion to Inference: RAG Pipelines on AMD GPUs <https://rocm.blogs.amd.com/artificial-intelligence/rag-agent/README.html>`__ for more information.
+ROCm-RAG is part of the `ROCm-LLMExt toolkit
+<https://rocm.docs.amd.com/projects/rocm-llmext/en/docs-26.04/>`__.
 
-The component public repository is located at `https://github.com/ROCm/rocm-rag <https://github.com/ROCm/rocm-rag>`__.
+The ROCm-RAG public repository is located at `https://github.com/ROCm/rocm-rag <https://github.com/ROCm/rocm-rag>`__.
 
 .. grid:: 2
   :gutter: 3
 
   .. grid-item-card:: Install
 
-    * :doc:`ROCm-RAG framework on ROCm installation <install/configure-framework>`
+    * :doc:`ROCm-RAG installation <install/configure-framework>`
   
   .. grid-item-card:: How to
 
@@ -33,5 +34,4 @@ The component public repository is located at `https://github.com/ROCm/rocm-rag 
 To contribute to the documentation, refer to
 `Contributing to ROCm <https://rocm.docs.amd.com/en/latest/contribute/contributing.html>`_.
 
-You can find licensing information on the
-`Licensing <https://github.com/ROCm/rocm-rag/blob/main/LICENSE>`_ page.
+You can find licensing information on the :doc:`Licensing <about/license>` page.

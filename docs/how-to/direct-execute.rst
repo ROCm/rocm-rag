@@ -10,26 +10,33 @@ Use direct execution to run the extraction and retrieval pipelines automatically
 
 .. note::
 
-  You can also limit the scope of scraping. For more information, see :ref:`extract`.
+   You can also limit the scope of scraping. For more information, see :ref:`extract`.
 
-Use this code in your terminal to directly execute the ROCm-RAG pipelines:
+Run the pipelines
+==================
 
-.. code:: bash 
+Use the following command in your terminal to directly execute the ROCm-RAG pipelines:
 
-  docker run --env-file <your env file> --cap-add=SYS_PTRACE --ipc=host --privileged=true \
-            --shm-size=128GB --network=host \
-            --device=/dev/kfd --device=/dev/dri \
-            --group-add video -it \
-            -v <mount dir>:<mount dir> \
-            rocm-rag:latest /bin/bash -c \
-            "cd /rag-workspace/rocm-rag/scripts && \
-             bash run-extraction.sh && \
-             bash run-retrieval.sh"
+.. code-block:: bash 
 
-The logs are saved to ``/rag-workspace/rocm-rag/logs`` inside the docker. To view logs on your host machine, mount this directory to a local path.
+   docker run --env-file <your env file> --cap-add=SYS_PTRACE --ipc=host --privileged=true \
+             --shm-size=128GB --network=host \
+             --device=/dev/kfd --device=/dev/dri \
+             --group-add video -it \
+             -v <mount dir>:<mount dir> \
+             rocm-rag:latest /bin/bash -c \
+             "cd /rag-workspace/rocm-rag/scripts && \
+              bash run-extraction.sh && \
+              bash run-retrieval.sh"
 
-.. warning::
+View logs
+=========
 
-  Running the container directly will not include HTTPS setup, so your microphone might be blocked by your browser in this approach. 
-  For more information, see :ref:`configure`.   
+The logs are saved to ``/rag-workspace/rocm-rag/logs`` inside the Docker container. To view logs on your host machine, mount this directory to a local path.
+
+.. important::
+
+   Running the container directly will not include HTTPS setup, so your microphone might be blocked by your browser with this approach. 
+   For more information, see :ref:`configure`.
+
 
