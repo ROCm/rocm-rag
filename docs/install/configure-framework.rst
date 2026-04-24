@@ -201,37 +201,35 @@ Configure environment variables
 ---------------------------------------------------------------
 
 You can configure both extraction and retrieval parameters by setting environment variables for the Docker container.
-
-Configuration methods
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 There are three ways to set environment variables:
 
-**A. Use an .env file (recommended)**
+.. tab-set::
 
-1. Start with `default.env <https://github.com/ROCm/rocm-rag/blob/main/default.env>`__ as a base.
-2. Modify the variables as needed and provide the ``.env`` file when running the container:
+   .. tab-item:: .env file (recommended)
 
-   .. code-block:: bash
+      1. Start with `default.env <https://github.com/ROCm/rocm-rag/blob/main/default.env>`__ as a base.
+      2. Modify the variables as needed and provide the ``.env`` file when running the container:
 
-      docker run --env-file <your env file> ...
+         .. code-block:: bash
 
-**B. Set variables during Docker run**
+            docker run --env-file <your env file> ...
 
-Set variables individually when starting the container:
+   .. tab-item:: Docker run
 
-.. code-block:: bash
+      Set variables individually when starting the container:
 
-   docker run -e VAR1=value1 -e VAR2=value2 ...
+      .. code-block:: bash
 
-**C. Export variables inside the container**
+         docker run -e VAR1=value1 -e VAR2=value2 ...
 
-If you're running a container in interactive mode:
+   .. tab-item:: Export in container
 
-.. code-block:: bash
+      Export variables inside the container when running in interactive mode:
 
-   export VAR1=value1
-   export VAR2=value2
+      .. code-block:: bash
+
+         export VAR1=value1
+         export VAR2=value2
 
 
 Environment variable reference
