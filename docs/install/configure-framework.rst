@@ -72,7 +72,7 @@ Configure ROCm-RAG
 
 Before running ROCm-RAG, you need to configure the RAG framework, inferencing framework, and environment variables.
 
-Choose an RAG framework
+Choose a RAG framework
 ---------------------------------------------------------------
 
 The ROCm-RAG implementation leverages two widely adopted RAG frameworks:
@@ -102,7 +102,8 @@ ROCm-RAG supports three inferencing frameworks:
 
 Choose the framework that best suits your preferences and workflow, then follow the setup guide to deploy your inference server.
 
-**Using the example LLM (optional)**
+Using the example LLM (optional)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you prefer to test the pipeline without deploying your own inference server, enable the example LLM by setting this environment variable:
 
@@ -114,7 +115,8 @@ By default, this launches ``Qwen/Qwen3-30B-A3B-Instruct-2507`` using vLLM inside
 
 If you're using the example LLM, you can skip the inferencing framework setup steps below.
 
-**Deploy an external inference server**
+Deploy an external inference server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you set ``ROCM_RAG_USE_EXAMPLE_LLM=False``, follow these steps to deploy an LLM inference server outside the ROCm-RAG container.
 
@@ -200,43 +202,43 @@ Configure environment variables
 
 You can configure both extraction and retrieval parameters by setting environment variables for the Docker container.
 
-**Configuration methods**
+Configuration methods
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There are three ways to set environment variables:
 
-.. tab-set::
+A. Use an .env file (recommended)
 
-   .. tab-item:: Use an .env file (recommended)
-
-      1. Start with `default.env <https://github.com/ROCm/rocm-rag/blob/main/default.env>`__ as a base. 
-      2. Modify the variables as needed and provide the ``.env`` file when running the container:
-
-         .. code-block:: bash 
-
-            docker run --env-file <your env file> ...
-
-   .. tab-item:: Set variables during Docker run
-
-      Set variables individually when starting the container:
+   1. Start with `default.env <https://github.com/ROCm/rocm-rag/blob/main/default.env>`__ as a base. 
+   2. Modify the variables as needed and provide the ``.env`` file when running the container:
 
       .. code-block:: bash 
 
-         docker run -e VAR1=value1 -e VAR2=value2 ...
+         docker run --env-file <your env file> ...
 
-   .. tab-item:: Export variables inside the container
+B. Set variables during Docker run
 
-      If you're running a container in interactive mode:
+   Set variables individually when starting the container:
 
-      .. code-block:: bash 
+   .. code-block:: bash 
 
-         export VAR1=value1
-         export VAR2=value2
+      docker run -e VAR1=value1 -e VAR2=value2 ...
 
-**Environment variable reference**
+C. Export variables inside the container
+
+   If you're running a container in interactive mode:
+
+   .. code-block:: bash 
+
+      export VAR1=value1
+      export VAR2=value2
+
+Environment variable reference
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following tables list the configurable environment variables for ROCm-RAG.
 
-*Workspace and storage variables*
+**Workspace and storage variables**
 
 .. list-table::
    :header-rows: 1
@@ -251,7 +253,7 @@ The following tables list the configurable environment variables for ROCm-RAG.
    * - ``ROCM_RAG_VISITED_URL_FILE``
      - File to save list of scraped URLs
 
-*Extraction parameters*
+**Extraction parameters**
 
 .. list-table::
    :header-rows: 1
@@ -306,7 +308,7 @@ The following tables list the configurable environment variables for ROCm-RAG.
    * - ``ROCM_RAG_SIMILARITY_THRESHOLD``
      - Similarity threshold for SemanticChunkMerger to merge
 
-*Retrieval parameters*
+**Retrieval parameters**
 
 .. list-table::
    :header-rows: 1
