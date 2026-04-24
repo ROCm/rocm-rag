@@ -207,31 +207,34 @@ Configuration methods
 
 There are three ways to set environment variables:
 
-A. Use an .env file (recommended)
+There are three ways to set environment variables:
 
-   1. Start with `default.env <https://github.com/ROCm/rocm-rag/blob/main/default.env>`__ as a base. 
+**A. Use an .env file (recommended)**
+
+   1. Start with `default.env <https://github.com/ROCm/rocm-rag/blob/main/default.env>`__ as a base.
    2. Modify the variables as needed and provide the ``.env`` file when running the container:
 
-      .. code-block:: bash 
+      .. code-block:: bash
 
          docker run --env-file <your env file> ...
 
-B. Set variables during Docker run
+**B. Set variables during Docker run**
 
    Set variables individually when starting the container:
 
-   .. code-block:: bash 
+   .. code-block:: bash
 
       docker run -e VAR1=value1 -e VAR2=value2 ...
 
-C. Export variables inside the container
+**C. Export variables inside the container**
 
    If you're running a container in interactive mode:
 
-   .. code-block:: bash 
+   .. code-block:: bash
 
       export VAR1=value1
       export VAR2=value2
+
 
 Environment variable reference
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
