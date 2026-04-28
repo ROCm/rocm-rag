@@ -2,6 +2,8 @@
   :description: ROCm-RAG documentation
   :keywords: ROCm, RAG, documentation
 
+.. _amd-rocm-rag-documentation:
+
 **********************
 ROCm-RAG documentation
 **********************

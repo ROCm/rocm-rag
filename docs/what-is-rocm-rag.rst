@@ -2,14 +2,16 @@
   :description: Learn about ROCm-RAG
   :keywords: ROCm, RAG, documentation
 
+.. _what-is-rocm-rag:
+
 *****************
 What is ROCm-RAG?
 *****************
 
 ROCm-RAG is an optimized Retrieval-Augmented Generation (RAG) implementation designed to run efficiently on AMD GPUs using the ROCm platform. It provides a complete, production-ready solution for building AI applications that combine the power of large language models with real-time information retrieval.
 
-RAG enhances the accuracy and reliability of Large Language Models by exposing it to up-to-date, relevant information.
-When a query is received, RAG retrieves relevant documents or information from its knowledge base, then uses this retrieved context alongside the query to generate accurate and informed responses.
+RAG enhances the accuracy and reliability of Large Language Models by exposing them to up-to-date, relevant information.
+When a query is received, RAG retrieves relevant documents or information from its knowledge base and then uses this retrieved context, along with the query, to generate accurate and informed responses.
 This approach helps reduce hallucinations (making up information) common in standard LLMs, while also enabling the model to access current information not present in its original training data.
 
 Organizations rely on the RAG pipelines (end-to-end systems) that process and manage information from raw data to the final response generation.
@@ -20,16 +22,16 @@ These pipelines operate in two main phases, the extraction phase and the retriev
 
 RAG is particularly valuable in enterprise applications where accuracy and verifiable information are crucial, such as customer support systems, research assistants, and documentation tools.
 
-Features and Use Cases
+Features and use cases
 ====================================================================
 
-ROCm-RAG provides the following key features:
+ROCm-RAG on AMD hardware provides the following key features:
 
 * **Document processing pipeline**: Automated ingestion, chunking, and preprocessing of various document formats
 * **Vector embedding generation**: High-performance embedding creation optimized for AMD GPUs
 * **Weaviate integration**: Seamless integration with Weaviate vector database for efficient similarity search
 * **LLM inference**: Accelerated language model inference using ROCm-optimized frameworks
-* **Retrieval optimization**: Advanced retrieval strategies including semantic search and hybrid search
+* **Retrieval optimization**: Advanced retrieval strategies, including semantic search and hybrid search
 * **Context management**: Intelligent context window management for optimal LLM performance
 * **Multi-document support**: Process and query across multiple document sources simultaneously
 * **Customizable chunking**: Flexible text splitting strategies for different document types

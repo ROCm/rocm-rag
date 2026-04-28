@@ -2,6 +2,8 @@
   :description: Set up and configure a ROCm-RAG framework
   :keywords: RAG, ROCm, install, Docker, frameworks, LLM
 
+.. _rocm-rag-installation:
+
 *************************************************************
 ROCm-RAG installation
 *************************************************************
@@ -19,8 +21,8 @@ To use ROCm-RAG `1.0.0 <https://github.com/ROCm/rocm-rag/tree/release/1.0.0>`__,
 
 .. note::
 
-   - If you're hosting the LLM outside the Docker container, the container requires one MI300X GPU. By default, the GPU ID is ``0``, but this can be changed by setting the environment variables ``ROCM_RAG_EMBEDDER_TP`` and ``ROCM_RAG_EMBEDDER_GPU_IDS``.
-   - If you're hosting the LLM inside the container (``ROCM_RAG_USE_EXAMPLE_LLM`` is set to ``true``), three MI300X GPUs are required. By default, the GPU IDs are ``0``, ``1``, ``2``, but these can be changed by setting the environment variables ``ROCM_RAG_EMBEDDER_TP``, ``ROCM_RAG_EMBEDDER_GPU_IDS``, ``ROCM_RAG_LLM_TP``, and ``ROCM_RAG_LLM_GPU_IDS``.
+   - If you're hosting the LLM outside the Docker container, the container requires one MI300X GPU. By default, the GPU ID is ``0``, but this can be changed by setting the :ref:`environment variables <rag-environment-variables>` for ``ROCM_RAG_EMBEDDER_TP`` and ``ROCM_RAG_EMBEDDER_GPU_IDS``.
+   - If you're hosting the LLM inside the container (``ROCM_RAG_USE_EXAMPLE_LLM`` is set to ``true``), three MI300X GPUs are required. By default, the GPU IDs are ``0``, ``1``, ``2``, but these can be changed by setting the :ref:`environment variables <rag-environment-variables>` for ``ROCM_RAG_EMBEDDER_TP``, ``ROCM_RAG_EMBEDDER_GPU_IDS``, ``ROCM_RAG_LLM_TP``, and ``ROCM_RAG_LLM_GPU_IDS``.
 
 
 Install ROCm-RAG
@@ -31,20 +33,20 @@ To install ROCm-RAG on ROCm, you have the following options:
 * :ref:`using-docker-with-rag-pre-installed` **(recommended)**
 * :ref:`build-rocm-rag-docker-image`
 
-After setting up the container with either option, configure your RAG framework, inferencing framework, and environment variables before running the pipelines.
+After setting up the container with either option, configure your RAG framework, inferencing framework, and :ref:`environment variables <rag-environment-variables>` before running the pipelines.
 
 .. _using-docker-with-rag-pre-installed:
 
 Use a prebuilt Docker image with ROCm-RAG pre-installed
 ---------------------------------------------------------------
 
-The prebuilt image contains a fully configured ROCm-RAG installation and all required dependencies pre-installed.
+The prebuilt image contains a fully configured ROCm-RAG installation and all required dependencies.
 
-1. Pull the Docker image.
+Pull the Docker image.
 
-   .. code-block:: bash 
+.. code-block:: bash 
 
-      docker pull rocm/rocm-rag:rocm-rag-1.0.0-rocm6.4.1-ubuntu22.04
+   docker pull rocm/rocm-rag:rocm-rag-1.0.0-rocm6.4.1-ubuntu22.04
 
 .. _build-rocm-rag-docker-image:
 
@@ -70,7 +72,7 @@ ROCm-RAG can be built from source using the provided Dockerfile.
 Configure ROCm-RAG
 ==============================================================
 
-Before running ROCm-RAG, you need to configure the RAG framework, inferencing framework, and environment variables.
+Before running ROCm-RAG, you need to configure the RAG framework, inferencing framework, and :ref:`environment variables <rag-environment-variables>`.
 
 Choose a RAG framework
 ---------------------------------------------------------------
@@ -82,7 +84,7 @@ The ROCm-RAG implementation leverages two widely adopted RAG frameworks:
 
 Choose a framework that best suits your preferences and workflow. Both frameworks are actively maintained and widely used in the field of LLM-based application development.
 
-You can configure a framework by setting environment variables when running the Docker container:
+You can configure a framework by setting :ref:`environment variables <rag-environment-variables>` when running the Docker container:
 
 .. code-block:: bash 
 
@@ -194,153 +196,13 @@ If you set ``ROCM_RAG_USE_EXAMPLE_LLM=False``, follow these steps to deploy an L
             -ngl 999 -np 4 --alias unsloth/DeepSeek-V3.1-Q4_K_M \
             --host 0.0.0.0 --port 30000
 
-After setting up your inference server, ensure you set the correct API endpoints for LLM server-related environment variables.
-
-
-Configure environment variables
----------------------------------------------------------------
-
-You can configure both extraction and retrieval parameters by setting environment variables for the Docker container.
-There are three ways to set environment variables:
-
-.. tab-set::
-
-   .. tab-item:: .env file (recommended)
-
-      1. Start with `default.env <https://github.com/ROCm/rocm-rag/blob/main/default.env>`__ as a base.
-      2. Modify the variables as needed and provide the ``.env`` file when running the container:
-
-         .. code-block:: bash
-
-            docker run --env-file <your env file> ...
-
-   .. tab-item:: Docker run
-
-      Set variables individually when starting the container:
-
-      .. code-block:: bash
-
-         docker run -e VAR1=value1 -e VAR2=value2 ...
-
-   .. tab-item:: Export in container
-
-      Export variables inside the container when running in interactive mode:
-
-      .. code-block:: bash
-
-         export VAR1=value1
-         export VAR2=value2
-
-
-Environment variable reference
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The following tables list the configurable environment variables for ROCm-RAG.
-
-**Workspace and storage variables**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 40 60
-
-   * - Variable
-     - Description
-   * - ``ROCM_RAG_WORKSPACE``
-     - ROCm-RAG workspace directory
-   * - ``ROCM_RAG_HASH_DIR``
-     - Directory to save page-level hash
-   * - ``ROCM_RAG_VISITED_URL_FILE``
-     - File to save list of scraped URLs
-
-**Extraction parameters**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 40 60
-
-   * - Variable
-     - Description
-   * - ``ROCM_RAG_EXTRACTION_FRAMEWORK``
-     - Extraction RAG framework (``haystack`` or ``langgraph``)
-   * - ``ROCM_RAG_HAYSTACK_SERVER_PORT``
-     - Haystack pipeline server port
-   * - ``ROCM_RAG_LANGGRAPH_SERVER_PORT``
-     - LangGraph server port
-   * - ``ROCM_RAG_EMBEDDER_MODEL``
-     - Embedder model
-   * - ``ROCM_RAG_EMBEDDER_API_BASE_URL``
-     - Embedder API base URL
-   * - ``ROCM_RAG_EMBEDDER_API_PORT``
-     - Embedder API port
-   * - ``ROCM_RAG_EMBEDDER_MAX_TOKENS``
-     - Embedder model max token limit
-   * - ``ROCM_RAG_WEAVIATE_URL``
-     - Weaviate DB API base URL
-   * - ``ROCM_RAG_WEAVIATE_PORT``
-     - Weaviate DB API port
-   * - ``ROCM_RAG_WEAVIATE_CLASSNAME``
-     - Weaviate classname
-   * - ``ROCM_RAG_WAIT_VECTOR_DB_TIMEOUT``
-     - Wait time for vector DB server to be ready
-   * - ``ROCM_RAG_WAIT_EMBEDDER_TIMEOUT``
-     - Wait time for embedder server to be ready
-   * - ``ROCM_RAG_EMBEDDER_TP``
-     - Tensor parallelism for embedder
-   * - ``ROCM_RAG_EMBEDDER_GPU_IDS``
-     - List of visible GPUs when deploying embedder model
-   * - ``ROCM_RAG_START_URLS``
-     - Start URL for scraping
-   * - ``ROCM_RAG_VALID_EXTENSIONS``
-     - List of supported URL extensions to scrape
-   * - ``ROCM_RAG_VALID_PAGE_FILTERS``
-     - List of regex filters for selecting valid pages to scrape
-   * - ``ROCM_RAG_REQUIRE_HUMAN_VERIFICATION_FILTERS``
-     - List of regex filters for identifying pages that require human verification
-   * - ``ROCM_RAG_PAGE_NOT_FOUND_FILTERS``
-     - List of regex filters for identifying not found pages
-   * - ``ROCM_RAG_SET_MAX_NUM_PAGES``
-     - Enable limit on the maximum number of pages to scrape
-   * - ``ROCM_RAG_MAX_NUM_PAGES``
-     - Maximum number of pages to scrape
-   * - ``ROCM_RAG_MAX_CHUNK_LENGTH``
-     - Maximum number of tokens for SemanticChunkMerger
-   * - ``ROCM_RAG_SIMILARITY_THRESHOLD``
-     - Similarity threshold for SemanticChunkMerger to merge
-
-**Retrieval parameters**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 40 60
-
-   * - Variable
-     - Description
-   * - ``ROCM_RAG_RETRIEVAL_FRAMEWORK``
-     - Retrieval RAG framework (``haystack`` or ``langgraph``)
-   * - ``ROCM_RAG_USE_EXAMPLE_LLM``
-     - Deploy example LLM inference server inside this Docker
-   * - ``ROCM_RAG_LLM_API_BASE_URL``
-     - LLM API base URL
-   * - ``ROCM_RAG_LLM_API_PORT``
-     - LLM API port
-   * - ``ROCM_RAG_LLM_MODEL``
-     - LLM model
-   * - ``ROCM_RAG_LLM_TP``
-     - Tensor parallelism
-   * - ``ROCM_RAG_LLM_GPU_IDS``
-     - Visible GPUs for example LLM
-   * - ``ROCM_RAG_HAYSTACK_CERTAINTY_THRESHOLD``
-     - Certainty threshold for retrieval
-   * - ``ROCM_RAG_HAYSTACK_TOP_K_RANKING``
-     - Top K retrieved documents for Haystack retrieval pipeline
-   * - ``ROCM_RAG_LANGGRAPH_TOP_K_RANKING``
-     - Top K retrieved documents for LangGraph retrieval pipeline
+After setting up your inference server, ensure you set the correct API endpoints for LLM server-related :ref:`environment variables <rag-environment-variables>`.
 
 
 Run ROCm-RAG
 ==============================================================
 
-Now that the ROCm-RAG framework is configured, you can execute the extraction and retrieval pipelines through:
+Once the ROCm-RAG framework is configured, you can execute the extraction and retrieval pipelines through:
 
 * :doc:`An interactive session <../how-to/run-interactive-session>`
 * :doc:`Direct execution with your terminal <../how-to/direct-execute>`

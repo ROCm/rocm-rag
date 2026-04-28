@@ -1,23 +1,25 @@
 .. meta::
-  :description: Test the ROCm-RAG pipelines with Open-WebUI
-  :keywords: RAG, ROCm, extraction, pipelines, how-to, container, Open-WebUI
+  :description: Test the ROCm-RAG pipelines with Open WebUI
+  :keywords: RAG, ROCm, extraction, pipelines, how-to, container, Open WebUI
 
-**************************************
-Test the RAG pipelines with Open-WebUI
-**************************************
+.. _rag-open-webui:
 
-After you've executed the ROCm-RAG pipelines, you can test them with `Open-WebUI <https://github.com/open-webui/open-webui>`__. When your retrieval pipeline is up and running (make sure all components are ready by checking the logs), you can access the Open-WebUI frontend by navigating to ``https://<Your deploy machine IP>`` or ``http://<Your deploy machine IP>:8080``.   
+**************************************************
+Test the RAG pipelines with Open WebUI
+**************************************************
 
-When you set up a new Open-WebUI account, your user data is saved to ``/rag-workspace/rocm-rag/external/open-webui/backend/data``.  
+After you've executed the ROCm-RAG pipelines, you can test them with `Open WebUI <https://github.com/open-webui/open-webui>`__. When your retrieval pipeline is up and running (make sure all components are ready by checking the logs), you can access the Open-WebUI frontend by navigating to ``https://<Your deploy machine IP>`` or ``http://<Your deploy machine IP>:8080``.   
 
-Set up and test pipelines with Open-WebUI
-==========================================
+When you set up a new Open WebUI account, your user data is saved to ``/rag-workspace/rocm-rag/external/open-webui/backend/data``.  
 
-1. Go to the admin panel.
+Set up and test pipelines with Open WebUI
+==================================================
+
+1. Go to the Admin panel.
 
    .. image:: ../images/main_page.png
       :align: center
-      :alt: Open-WebUI main page
+      :alt: Open WebUI main page
 
 2. Enable user sign-ups.
 

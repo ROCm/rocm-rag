@@ -2,6 +2,8 @@
   :description: Run ROCm-RAG from a Docker container in interactive mode
   :keywords: RAG, ROCm, extraction, how-to, Docker, retrieval
 
+.. _run-rag-ineractive:
+
 **************************************
 Run ROCm-RAG in an interactive session
 **************************************

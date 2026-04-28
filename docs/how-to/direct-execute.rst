@@ -2,6 +2,8 @@
   :description: Run the ROCm-RAG extraction and retrieval pipelines automatically without entering a container
   :keywords: RAG, ROCm, extraction, pipelines, how-to, container, Open-WebUI
 
+.. _rag-direct-execute:
+
 **********************************
 Run ROCm-RAG with direct execution 
 **********************************

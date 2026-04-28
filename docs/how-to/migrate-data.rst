@@ -2,6 +2,8 @@
   :description: Migrate Weaviate data between different storages
   :keywords: RAG, ROCm, Weaviate, how-to, data, migration
 
+.. _rag-migrate-weaviate:
+
 ******************************
 Migrate ROCm-RAG Weaviate data
 ******************************
