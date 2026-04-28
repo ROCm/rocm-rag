@@ -13,7 +13,7 @@ subtrees:
   - file: install/configure-framework.rst
     title: Install ROCm-RAG
   - file: install/env-var.rst
-    title: Configure environment variables
+    title: Configure environment variables for ROCm-RAG
 
 - caption: How to
   entries:

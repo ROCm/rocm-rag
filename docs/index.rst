@@ -24,7 +24,7 @@ The ROCm-RAG public repository is located at `https://github.com/ROCm/rocm-rag <
 
   .. grid-item-card:: Install
 
-    * :doc:`ROCm-RAG installation <install/configure-framework>`
+    * :doc:`Install ROCm-RAG <install/configure-framework>`
     * :doc:`Configure environment variables <install/env-var>`
   
   .. grid-item-card:: How to

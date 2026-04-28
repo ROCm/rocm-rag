@@ -5,7 +5,7 @@
 .. _rag-environment-variables:
 
 *************************************************************
-Configure environment variables
+Configure environment variables for ROCm-RAG
 *************************************************************
 
 You can configure both extraction and retrieval parameters by setting environment variables for the Docker container in :ref:`rocm-rag-installation`.
