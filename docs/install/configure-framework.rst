@@ -13,7 +13,7 @@ This topic covers setup and install instructions to help you get started running
 System requirements
 =============================================================
 
-To use ROCm-RAG `1.0.0 <https://github.com/ROCm/rocm-rag/tree/release/1.0.0>`__, you need the following prerequisites:
+To use ROCm-RAG `1.0.0 <https://github.com/AMD-Ecosystem/rocm-rag/tree/release/1.0.0>`__, you need the following prerequisites:
 
 - **ROCm version:** `6.4.1 <https://rocm.docs.amd.com/en/docs-6.4.1/>`__
 - **Operating system:** Ubuntu 22.04
@@ -55,11 +55,11 @@ Build from source
 
 ROCm-RAG can be built from source using the provided Dockerfile.
 
-1. Clone the `https://github.com/ROCm/rocm-rag <https://github.com/ROCm/rocm-rag>`__ repository.
+1. Clone the `https://github.com/AMD-Ecosystem/rocm-rag <https://github.com/AMD-Ecosystem/rocm-rag>`__ repository.
 
    .. code-block:: bash
 
-      git clone https://github.com/ROCm/rocm-rag.git --recursive
+      git clone https://github.com/AMD-Ecosystem/rocm-rag.git --recursive
       cd rocm-rag
   
 2. Build the Docker image.
