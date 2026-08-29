@@ -11,7 +11,9 @@ subtrees:
 - caption: Install
   entries:
   - file: install/configure-framework.rst
-    title: ROCm-RAG framework on ROCm installation
+    title: Install ROCm-RAG
+  - file: install/env-var.rst
+    title: Configure environment variables for ROCm-RAG
 
 - caption: How to
   entries:
@@ -26,5 +28,7 @@ subtrees:
  
 - caption: About
   entries:
-  - file: license.rst
+  - url: https://rocm.blogs.amd.com/artificial-intelligence/rag-agent/README.html
+    title: ROCm-RAG blog
+  - file: about/license.rst
     title: License
